@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact TERIK Tours - TERIK Tours Kenya</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>TERIK TOURS KENYA</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="attractions.html" class="nav-link">Attractions</a></li>
+                <li class="nav-item"><a href="safari.html" class="nav-link">Safari Tours</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Get In Touch</h1>
+        <p>Have questions? We'd love to hear from you!</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+                <h2>Send us a Message</h2>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="booking">Tour Booking</option>
+                            <option value="inquiry">General Inquiry</option>
+                            <option value="custom">Custom Package</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Preferred Destination</label>
+                        <select id="destination" name="destination">
+                            <option value="">Choose destination</option>
+                            <option value="masai-mara">Masai Mara</option>
+                            <option value="mount-kenya">Mount Kenya</option>
+                            <option value="amboseli">Amboseli</option>
+                            <option value="tsavo">Tsavo</option>
+                            <option value="nakuru">Lake Nakuru</option>
+                            <option value="hellsgate">Hell's Gate</option>
+                            <option value="mombasa">Mombasa Beach</option>
+                            <option value="samburu">Samburu</option>
+                            <option value="multiple">Multiple Destinations</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+                    <div class="form-group checkbox">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter">Subscribe to our newsletter for special offers</label>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+                <div id="formMessage" class="form-message" style="display: none;"></div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="contact-info-wrapper">
+                <h2>Contact Information</h2>
+                
+                <div class="contact-info-box">
+                    <h3>📍 Main Office</h3>
+                    <p>TERIK Tours Kenya</p>
+                    <p>Nairobi, Kenya</p>
+                    <p>Central Business District</p>
+                </div>
+
+                <div class="contact-info-box">
+                    <h3>📞 Phone</h3>
+                    <p><strong>Main:</strong> +254 700 123 456</p>
+                    <p><strong>Bookings:</strong> +254 720 234 567</p>
+                    <p><strong>Support:</strong> +254 730 345 678</p>
+                </div>
+
+                <div class="contact-info-box">
+                    <h3>✉️ Email</h3>
+                    <p><strong>General:</strong> info@teriktourskenya.com</p>
+                    <p><strong>Bookings:</strong> bookings@teriktourskenya.com</p>
+                    <p><strong>Support:</strong> support@teriktourskenya.com</p>
+                </div>
+
+                <div class="contact-info-box">
+                    <h3>⏰ Business Hours</h3>
+                    <p><strong>Monday - Friday:</strong> 7:00 AM - 6:00 PM EAT</p>
+                    <p><strong>Saturday:</strong> 8:00 AM - 4:00 PM EAT</p>
+                    <p><strong>Sunday:</strong> Closed</p>
+                    <p><strong>Emergency:</strong> Available 24/7</p>
+                </div>
+
+                <div class="contact-info-box">
+                    <h3>🌐 Connect With Us</h3>
+                    <div class="social-links-full">
+                        <a href="#" class="social-link">📘 Facebook</a>
+                        <a href="#" class="social-link">📷 Instagram</a>
+                        <a href="#" class="social-link">🐦 Twitter</a>
+                        <a href="#" class="social-link">▶️ YouTube</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <h2>Find Us On The Map</h2>
+        <div class="map-container">
+            <div class="map-placeholder">
+                <p>📍 TERIK Tours Kenya - Nairobi Office</p>
+                <p>For interactive map, embed your Google Maps here</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="contact-faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <h3>What is the best way to contact you?</h3>
+                <p>You can reach us via email (info@teriktourskenya.com), phone (+254 700 123 456), or by filling out the contact form above. Response time is typically within 24 hours.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How far in advance should I book a tour?</h3>
+                <p>We recommend booking 4-8 weeks in advance for better availability and planning. However, we can accommodate last-minute bookings subject to availability.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What payment methods do you accept?</h3>
+                <p>We accept bank transfers, credit/debit cards, and PayPal. A 30% deposit is required to confirm booking, with the balance due 30 days before travel.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Do you offer customized tours?</h3>
+                <p>Yes! We specialize in creating custom tour packages tailored to your specific interests, budget, and schedule. Contact us to discuss your requirements.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What is your cancellation policy?</h3>
+                <p>Cancellations made more than 45 days before travel receive a full refund. 15-45 days gets 50% refund. Less than 15 days is non-refundable. Travel insurance is recommended.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Do you provide travel insurance?</h3>
+                <p>While we don't provide insurance directly, we strongly recommend purchasing comprehensive travel insurance before your trip. Ask us for recommended providers.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Response Time Notice -->
+    <section class="response-notice">
+        <h3>📧 Expected Response Times</h3>
+        <div class="response-times">
+            <div class="time-slot">
+                <p><strong>During Business Hours:</strong> 1-2 hours</p>
+            </div>
+            <div class="time-slot">
+                <p><strong>After Hours:</strong> Next business morning</p>
+            </div>
+            <div class="time-slot">
+                <p><strong>Weekends:</strong> Monday morning</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About TERIK Tours</h3>
+                <p>Leading provider of authentic safari and adventure tours across Kenya.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="attractions.html">Attractions</a></li>
+                    <li><a href="safari.html">Tours</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>📍 Nairobi, Kenya</p>
+                <p>📞 +254 700 123 456</p>
+                <p>✉️ info@teriktourskenya.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TERIK Tours Kenya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
