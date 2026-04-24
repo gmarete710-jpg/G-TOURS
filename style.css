@@ -225,19 +225,19 @@ body {
 }
 
 .masai-mara {
-    background: linear-gradient(135deg, #c9a878 0%, #8b5a2b 100%);
+    background: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=500&h=300&fit=crop') center/cover no-repeat;
 }
 
 .mount-kenya {
-    background: linear-gradient(135deg, #a0a0a0 0%, #505050 100%);
+    background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=300&fit=crop') center/cover no-repeat;
 }
 
 .amboseli {
-    background: linear-gradient(135deg, #d4a574 0%, #9d7e5d 100%);
+    background: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&h=300&fit=crop') center/cover no-repeat;
 }
 
 .tsavo {
-    background: linear-gradient(135deg, #b8860b 0%, #8b4513 100%);
+    background: url('https://images.unsplash.com/photo-1601933473888-d4a47e32c4cd?w=500&h=300&fit=crop') center/cover no-repeat;
 }
 
 .attraction-card h3 {
@@ -403,47 +403,47 @@ body {
 }
 
 .masai-mara-large {
-    background: linear-gradient(135deg, #c9a878 0%, #8b5a2b 100%);
+    background: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&h=600&fit=crop') center/cover no-repeat;
 }
 
 .mount-kenya-large {
-    background: linear-gradient(135deg, #a0a0a0 0%, #505050 100%);
+    background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop') center/cover no-repeat;
 }
 
 .amboseli-large {
-    background: linear-gradient(135deg, #d4a574 0%, #9d7e5d 100%);
+    background: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop') center/cover no-repeat;
 }
 
 .tsavo-large {
-    background: linear-gradient(135deg, #b8860b 0%, #8b4513 100%);
+    background: url('https://images.unsplash.com/photo-1601933473888-d4a47e32c4cd?w=800&h=600&fit=crop') center/cover no-repeat;
 }
 
 .nakuru-large {
-    background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+    background: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&h=600&fit=crop') center/cover no-repeat;
 }
 
 .hellsgate-large {
-    background: linear-gradient(135deg, #ff6347 0%, #8b4513 100%);
+    background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop') center/cover no-repeat;
 }
 
 .attraction-img-beach {
     width: 100%;
     height: 400px;
-    background: linear-gradient(135deg, #87ceeb 0%, #fff8dc 100%);
+    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop') center/cover no-repeat;
     border-radius: 10px;
 }
 
 .attraction-img-rift {
     width: 100%;
     height: 400px;
-    background: linear-gradient(135deg, #708090 0%, #8b4513 100%);
+    background: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&h=600&fit=crop') center/cover no-repeat;
     border-radius: 10px;
 }
 
 .attraction-img-samburu {
     width: 100%;
     height: 400px;
-    background: linear-gradient(135deg, #cd853f 0%, #8b4513 100%);
+    background: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&h=600&fit=crop') center/cover no-repeat;
     border-radius: 10px;
 }
 
@@ -543,35 +543,35 @@ body {
 }
 
 .masai-mara-safari {
-    background: linear-gradient(135deg, #c9a878 0%, #8b5a2b 100%);
+    background: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&h=400&fit=crop') center/cover no-repeat;
 }
 
 .migration-safari {
-    background: linear-gradient(135deg, #d4a574 0%, #8b5a2b 100%);
+    background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop') center/cover no-repeat;
 }
 
 .mount-kenya-climb {
-    background: linear-gradient(135deg, #a0a0a0 0%, #505050 100%);
+    background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop') center/cover no-repeat;
 }
 
 .combo-safari {
-    background: linear-gradient(135deg, #87ceeb 0%, #8b5a2b 100%);
+    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop') center/cover no-repeat;
 }
 
 .tsavo-safari {
-    background: linear-gradient(135deg, #b8860b 0%, #8b4513 100%);
+    background: url('https://images.unsplash.com/photo-1601933473888-d4a47e32c4cd?w=600&h=400&fit=crop') center/cover no-repeat;
 }
 
 .luxury-safari {
-    background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
+    background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop') center/cover no-repeat;
 }
 
 .northern-safari {
-    background: linear-gradient(135deg, #cd853f 0%, #8b4513 100%);
+    background: url('https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?w=600&h=400&fit=crop') center/cover no-repeat;
 }
 
 .family-safari {
-    background: linear-gradient(135deg, #ff69b4 0%, #d4a574 100%);
+    background: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&h=400&fit=crop') center/cover no-repeat;
 }
 
 .package-content {
@@ -820,7 +820,7 @@ body {
 }
 
 .landscape-about {
-    background: linear-gradient(135deg, #90ee90 0%, #8b5a2b 100%);
+    background: url('https://images.unsplash.com/photo-1580980659033-d02fb23848c0?w=800&h=600&fit=crop') center/cover no-repeat;
 }
 
 /* ===== MISSION & VISION ===== */
@@ -1552,4 +1552,259 @@ body {
     .page-header h1 {
         font-size: 2rem;
     }
+}
+
+/* ===== ENHANCED INTERACTIVE STYLES ===== */
+
+/* Button hover effects */
+.book-btn, .submit-btn, .cta-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.book-btn:hover, .submit-btn:hover, .cta-button:hover {
+    color: white;
+}
+
+.book-btn::before, .submit-btn::before, .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.book-btn:hover::before, .submit-btn:hover::before, .cta-button:hover::before {
+    left: 100%;
+}
+
+/* Card animations on scroll */
+.animate-in {
+    animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced form inputs */
+input[type="text"], 
+input[type="email"], 
+input[type="tel"], 
+select, 
+textarea {
+    transition: all 0.3s ease;
+    border: 2px solid #ddd;
+}
+
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="tel"]:focus, 
+select:focus, 
+textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Form message styling */
+.form-message {
+    padding: 12px 16px;
+    border-radius: 5px;
+    margin-top: 1rem;
+    animation: slideDown 0.3s ease;
+}
+
+.form-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.form-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.form-message.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card scale effect */
+.package-card, .attraction-card, .reason-card, .service-card {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.package-card:hover, .attraction-card:hover, .reason-card:hover, .service-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Testimonial styling */
+.testimonial {
+    opacity: 1;
+    animation: fadeInScale 0.6s ease;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Scroll progress indicator */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--accent-color), #ff9a56);
+    width: 0%;
+    z-index: 9998;
+    transition: width 0.2s ease;
+}
+
+/* Loading spinner */
+.spinner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Pulse effect for important buttons */
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 107, 53, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
+    }
+}
+
+/* Badge animations */
+.badge {
+    display: inline-block;
+    background: var(--accent-color);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Tooltip styling */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -50px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Success checkmark animation */
+@keyframes checkmark {
+    0% {
+        stroke-dashoffset: 50;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Input focus indicators */
+.form-group input:valid,
+.form-group textarea:valid {
+    border-left: 4px solid var(--success-color);
+}
+
+.form-group input:invalid:not(:placeholder-shown),
+.form-group textarea:invalid:not(:placeholder-shown) {
+    border-left: 4px solid #e74c3c;
+}
+
+/* Counter animation */
+.counter {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
 }
