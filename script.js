@@ -73,42 +73,6 @@ navLinks.forEach(link => {
     });
 });
 
-// ===== CONTACT FORM =====
-const contactForm = document.getElementById('contactForm');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
-        
-        // Validate form
-        if (!name || !email || !subject || !message) {
-            showFormMessage('Please fill in all required fields', 'error');
-            return;
-        }
-        
-        // Validate email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            showFormMessage('Please enter a valid email address', 'error');
-            return;
-        }
-        
-        // Simulate form submission
-        console.log('Form submitted:', { name, email, subject, message });
-        
-        // Show success message
-        showFormMessage('Thank you for your message! We will get back to you within 24 hours.', 'success');
-        
-        // Reset form
-        contactForm.reset();
-    });
-}
-
 function showFormMessage(message, type) {
     const formMessage = document.getElementById('formMessage');
     if (formMessage) {
@@ -121,31 +85,6 @@ function showFormMessage(message, type) {
             formMessage.style.display = 'none';
         }, 5000);
     }
-}
-
-// ===== NEWSLETTER SUBSCRIPTION =====
-const emailInput = document.getElementById('emailInput');
-const subscribeBtn = document.querySelector('.subscribe-btn');
-
-if (subscribeBtn) {
-    subscribeBtn.addEventListener('click', () => {
-        const email = emailInput.value;
-        
-        if (!email) {
-            alert('Please enter your email address');
-            return;
-        }
-        
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address');
-            return;
-        }
-        
-        console.log('Newsletter subscription:', email);
-        alert('Thank you for subscribing! Check your email for a confirmation.');
-        emailInput.value = '';
-    });
 }
 
 // ===== SMOOTH SCROLLING =====
@@ -536,6 +475,11 @@ if ('IntersectionObserver' in window) {
         });
     });
     lazyImages.forEach(img => imageObserver.observe(img));
+    lazyImages.forEach(img => {
+        if (!img.hasAttribute('src')) {
+            img.src = img.dataset.src;
+        }
+    });
 }
 
 // ===== PAGE LOAD ANIMATIONS =====
@@ -641,9 +585,9 @@ if (contactForm) {
     });
     
     // Real-time email validation
-    const emailInput = document.getElementById('email');
-    if (emailInput) {
-        emailInput.addEventListener('blur', function() {
+    const contactEmailInput = document.getElementById('email');
+    if (contactEmailInput) {
+        contactEmailInput.addEventListener('blur', function() {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (this.value && !emailRegex.test(this.value)) {
                 this.style.borderColor = '#e74c3c';

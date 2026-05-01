@@ -116,6 +116,14 @@ body {
     opacity: 1;
 }
 
+.hero-slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.68);
+}
+
 .hero-overlay {
     position: relative;
     z-index: 10;
@@ -285,6 +293,57 @@ body {
 .service-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.responsive-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.travel-insights {
+    padding: 4rem 2rem;
+    background: #fff8f2;
+}
+
+.travel-insights h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    color: var(--dark-color);
+}
+
+.insights-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.insight-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.insight-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+}
+
+.insight-card h3 {
+    color: var(--dark-color);
+    font-size: 1.4rem;
+    margin: 1.5rem;
+}
+
+.insight-card p {
+    color: #666;
+    line-height: 1.8;
+    margin: 0 1.5rem 1.5rem;
 }
 
 .service-icon {
@@ -871,6 +930,51 @@ body {
     font-weight: bold;
 }
 
+.awards-section {
+    background: #f9f9f9;
+    padding: 4rem 2rem;
+}
+
+.awards-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    color: var(--dark-color);
+}
+
+.awards-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.award-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.award-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+}
+
+.award-card h3 {
+    color: var(--dark-color);
+    font-size: 1.4rem;
+    margin: 1.5rem;
+}
+
+.award-card p {
+    color: #666;
+    line-height: 1.8;
+    margin: 0 1.5rem 1.5rem;
+}
+
 /* ===== WHY CHOOSE US ===== */
 .why-choose-us {
     background: #f9f9f9;
@@ -1318,13 +1422,34 @@ body {
 .map-placeholder {
     width: 100%;
     height: 400px;
-    background: linear-gradient(135deg, #87ceeb 0%, #e0e0e0 100%);
+    position: relative;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #666;
+    color: #fff;
     text-align: center;
+    background: linear-gradient(135deg, #87ceeb 0%, #e0e0e0 100%);
+}
+
+.map-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.map-overlay {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    color: white;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.5);
+    padding: 1rem 1.5rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
 }
 
 /* ===== CONTACT FAQ ===== */

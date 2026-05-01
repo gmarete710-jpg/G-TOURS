@@ -20,7 +20,7 @@
                 <li class="nav-item"><a href="attractions.html" class="nav-link">Attractions</a></li>
                 <li class="nav-item"><a href="safari.html" class="nav-link">Safari Tours</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
-                <li class="nav-item"><a href="contact us.html" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -33,19 +33,22 @@
     <!-- Hero Section with Animals -->
     <section class="hero">
         <div class="hero-carousel">
-            <div class="hero-slide active" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?w=1200&h=600&fit=crop'); background-size: cover; background-position: center;">
+            <div class="hero-slide active">
+                <img class="hero-slide-image" src="https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?w=1200&h=600&fit=crop" alt="Lion on the savanna" loading="lazy">
                 <div class="hero-content">
                     <h2>LION</h2>
                     <p>King of the Savanna</p>
                 </div>
             </div>
-            <div class="hero-slide" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200&h=600&fit=crop'); background-size: cover; background-position: center;">
+            <div class="hero-slide">
+                <img class="hero-slide-image" src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200&h=600&fit=crop" alt="Elephant herd in Kenya" loading="lazy">
                 <div class="hero-content">
                     <h2>ELEPHANT</h2>
                     <p>Gentle Giants of Africa</p>
                 </div>
             </div>
-            <div class="hero-slide" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1511245330298-1d3b3193b00a?w=1200&h=600&fit=crop'); background-size: cover; background-position: center;">
+            <div class="hero-slide">
+                <img class="hero-slide-image" src="https://images.unsplash.com/photo-1511245330298-1d3b3193b00a?w=1200&h=600&fit=crop" alt="Giraffe in the wild" loading="lazy">
                 <div class="hero-content">
                     <h2>GIRAFFE</h2>
                     <p>Nature's most Magnificent Tower</p>
@@ -68,25 +71,25 @@
         <h2>Featured Destinations</h2>
         <div class="attractions-grid">
             <div class="attraction-card" data-destination="masai-mara">
-                <div class="attraction-image masai-mara"></div>
+                <div class="attraction-image"><img class="responsive-img" src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=500&h=300&fit=crop" alt="Masai Mara safari" loading="lazy"></div>
                 <h3>Masai Mara</h3>
                 <p>Witness the Great Migration and encounter Africa's "Big Five"</p>
                 <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
             </div>
             <div class="attraction-card" data-destination="mount-kenya">
-                <div class="attraction-image mount-kenya"></div>
+                <div class="attraction-image"><img class="responsive-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=300&fit=crop" alt="Mount Kenya landscape" loading="lazy"></div>
                 <h3>Mount Kenya</h3>
                 <p>Conquer East Africa's second-highest peak</p>
                 <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
             </div>
             <div class="attraction-card" data-destination="amboseli">
-                <div class="attraction-image amboseli"></div>
+                <div class="attraction-image"><img class="responsive-img" src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&h=300&fit=crop" alt="Amboseli elephants and Kilimanjaro" loading="lazy"></div>
                 <h3>Amboseli</h3>
                 <p>Stunning views of Kilimanjaro with incredible wildlife</p>
                 <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
             </div>
             <div class="attraction-card" data-destination="tsavo">
-                <div class="attraction-image tsavo"></div>
+                <div class="attraction-image"><img class="responsive-img" src="https://images.unsplash.com/photo-1601933473888-d4a47e32c4cd?w=500&h=300&fit=crop" alt="Tsavo wildlife landscape" loading="lazy"></div>
                 <h3>Tsavo</h3>
                 <p>Africa's largest national park with red elephants</p>
                 <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
@@ -128,6 +131,27 @@
                 <h3>Family Packages</h3>
                 <p>Create unforgettable memories with tailored family tours</p>
             </div>
+        </div>
+    </section>
+
+    <section class="travel-insights">
+        <h2>Travel Insights & Safari Planning</h2>
+        <div class="insights-grid">
+            <article class="insight-card">
+                <img class="responsive-img" src="https://images.unsplash.com/photo-1516387938699-a93567ec168e?w=800&h=500&fit=crop" alt="Planning a safari" loading="lazy">
+                <h3>Plan Like a Pro</h3>
+                <p>Learn when to visit, what to pack, and how to prepare for the Kenyan wilderness.</p>
+            </article>
+            <article class="insight-card">
+                <img class="responsive-img" src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&h=500&fit=crop" alt="Local cultural experience" loading="lazy">
+                <h3>Cultural Immersion</h3>
+                <p>Discover how local communities, traditions, and conservation are woven into every tour.</p>
+            </article>
+            <article class="insight-card">
+                <img class="responsive-img" src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&h=500&fit=crop" alt="Wildlife photography guide" loading="lazy">
+                <h3>Photography Tips</h3>
+                <p>Get insider advice on capturing wildlife moments, landscapes, and unforgettable safari shots.</p>
+            </article>
         </div>
     </section>
 
