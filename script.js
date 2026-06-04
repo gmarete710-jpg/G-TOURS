@@ -746,14 +746,14 @@ window.addEventListener('error', (event) => {
 });
 
 // ===== CONSOLE LOG FOR DEBUGGING =====
-console.log('TERIK Tours Kenya Website Loaded Successfully');
+console.log('G Tours Kenya Website Loaded Successfully');
 console.log('Website features: Interactive carousel, responsive design, smooth scrolling, form validation, modals, favorites, animations');
 console.log('Tip: Press H to go to top, S to see attractions');
 
 // Add some fun Easter eggs
 document.addEventListener('keydown', (e) => {
     if (e.key === 't' && e.ctrlKey) {
-        console.log('🦁 Welcome to TERIK Tours Kenya! 🦁');
+        console.log('🦁 Welcome to G Tours Kenya! 🦁');
         console.log('📍 Exploring Kenya\'s top attractions');
         console.log('🌍 Your African adventure awaits!');
     }

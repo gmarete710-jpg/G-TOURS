@@ -1,10 +1,10 @@
-# TERIK Tours Kenya - Professional Website
+# G Tours Kenya - Professional Website
 
-A mature, professional website for TERIK Tours Kenya featuring real tourist attractions and interactive pages with stunning animal and landscape imagery.
+A mature, professional website for G Tours Kenya featuring real tourist attractions and interactive pages with stunning animal and landscape imagery.
 
 ## 📋 Project Overview
 
-TERIK Tours Kenya is a premium tour operator website showcasing Kenya's finest safari destinations, wildlife experiences, and adventure packages. The website features a sophisticated design with real Kenyan attractions and interactive functionality.
+G Tours Kenya is a premium tour operator website showcasing Kenya's finest safari destinations, wildlife experiences, and adventure packages. The website features a sophisticated design with real Kenyan attractions and interactive functionality.
 
 ## 🌐 Website Pages
 
@@ -46,7 +46,7 @@ TERIK Tours Kenya is a premium tour operator website showcasing Kenya's finest s
 
 ### 4. **About Us (about.html)**
 - Company mission, vision, and values
-- Why Choose TERIK Tours (8 reasons with icons)
+- Why Choose G Tours (8 reasons with icons)
 - Meet the Team (6 professional team members)
 - Statistics & achievements
 - Conservation initiatives
@@ -114,7 +114,7 @@ TERIK Tours Kenya is a premium tour operator website showcasing Kenya's finest s
 ## 📁 File Structure
 
 ```
-TERIK/
+G/
 ├── index.html           # Home page with hero carousel
 ├── attractions.html     # 8 major tourist destinations
 ├── safari.html          # Safari packages and tours
@@ -210,13 +210,13 @@ TERIK/
 ## 📞 Contact Information
 
 - **Phone**: +254 700 123 456
-- **Email**: info@teriktourskenya.com
+- **Email**: garethmarete11@gmail.com
 - **Location**: Nairobi, Kenya
 - **Support**: Available 24/7 for emergencies
 
 ## 📄 License
 
-Professional website created for TERIK Tours Kenya 2026.
+Professional website created for G Tours Kenya 2026.
 
 ## 🦁 Website Highlights
 
@@ -235,4 +235,4 @@ Professional website created for TERIK Tours Kenya 2026.
 
 **Website Status**: ✅ Production Ready
 
-Start your TERIK Tours Kenya adventure today!
+Start your G Tours Kenya adventure today!
