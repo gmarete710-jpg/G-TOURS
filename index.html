@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G Tours Kenya - Discover the wildlife of kenya</title>
+    <link rel="stylesheet" href="style.css">
+     <style>
+        .social-icon{
+          color: #ece8e6;
+          font-size:40px;
+          transition: color 0.3s;
+          margin: 0 10px;
+        }
+
+        .social-icon:hover{
+            color: #10e010;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div id="progress-bar" style="position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(to right, #ff6b35, #ff9a56); width: 0%; z-index: 9998; transition: width 0.2s ease;"></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+            
+                <h1>G TOURS KENYA</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="attractions.html" class="nav-link">Attractions</a></li>
+                <li class="nav-item"><a href="safari.html" class="nav-link">Safari Tours</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Animals -->
+    <section class="hero">
+        <div class="hero-carousel">
+            <div class="hero-slide active">
+                <img class="hero-slide-image" src="walk.lion.jpg" alt="Lion on the savanna" loading="lazy">
+                <div class="hero-content">
+                    <h2>LION</h2>
+                    <p>King of the Savanna</p>
+                </div>
+            </div>
+            <div class="hero-slide">
+                <img class="hero-slide-image" src="walking.rhinos.jpg" alt="Elephant herd in Kenya" loading="lazy">
+                <div class="hero-content">
+                    <h2>ELEPHANT</h2>
+                    <p>Gentle Giants of Africa</p>
+                </div>
+            </div>
+            <div class="hero-slide">
+                <img class="hero-slide-image" src="landscape.kenya.jpg" alt="Giraffe in the wild" loading="lazy">
+                <div class="hero-content">
+                    <h2>GIRAFFE</h2>
+                    <p>Nature's most Magnificent Tower</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-overlay">
+            <h1 class="hero-title">Welcome to G Tours Kenya</h1>
+            <p class="hero-subtitle">Experience the Wonder of African Wildlife and the beauty of Kenyan landscapes</p>
+            <button class="cta-button">Start Your Adventure</button>
+        </div>
+        <div class="carousel-controls">
+            <button class="prev">❮</button>
+            <button class="next">❯</button>
+        </div>
+    </section>
+
+    <!-- Featured Attractions Preview -->
+    <section class="featured-attractions">
+        <h2>Featured Destinations</h2>
+        <div class="attractions-grid">
+            <div class="attraction-card" data-destination="masai-mara">
+                <div class="attraction-image"><img class="responsive-img" src="mara safaris.jpg" alt="Masai Mara safari" loading="lazy"></div>
+                <h3>Masai Mara</h3>
+                <p>Witness the Great Migration and encounter Africa's "Big Five"</p>
+                <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
+            </div>
+            <div class="attraction-card" data-destination="mount-kenya">
+                <div class="attraction-image"><img class="responsive-img" src="mt.kenya.jpg" alt="Mount Kenya landscape" loading="lazy"></div>
+                <h3>Mount Kenya</h3>
+                <p>Conquer East Africa's second-highest peak</p>
+                <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
+            </div>
+            <div class="attraction-card" data-destination="amboseli">
+                <div class="attraction-image"><img class="responsive-img" src="giraffe.amboseli.jpg" alt="Amboseli elephants and Kilimanjaro" loading="lazy"></div>
+                <h3>Amboseli</h3>
+                <p>Stunning views of Kilimanjaro with incredible wildlife</p>
+                <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
+            </div>
+            <div class="attraction-card" data-destination="tsavo">
+                <div class="attraction-image"><img class="responsive-img" src="tsavo.park.jpg" alt="Tsavo wildlife landscape" loading="lazy"></div>
+                <h3>Tsavo</h3>
+                <p>Africa's largest national park with red elephants</p>
+                <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon"></div>
+                <h3>Wildlife Safari</h3>
+                <p>Professional guided safari tours to encounter Africa's incredible wildlife</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"></div>
+                <h3>Camping Adventures</h3>
+                <p>Experience the raw beauty of nature under the stars</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"></div>
+                <h3>Hiking Expeditions</h3>
+                <p>Trek through mountains and valleys with expert guides</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"></div>
+                <h3>Photography Tours</h3>
+                <p>Capture breathtaking moments with professional photography guides</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"></div>
+                <h3>Luxury Accommodations</h3>
+                <p>Stay in premium lodges and resorts with world-class service</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"></div>
+                <h3>Family Packages</h3>
+                <p>Create unforgettable memories with tailored family tours</p>
+             </div>
+                <div class="service-card">
+                    <div class="service-icon"></div>
+                    <h3>Custom Itineraries</h3>
+                    <p>Design your dream safari of your preference with our expert travel planners</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="travel-insights">
+        <h2>Travel Insights & Safari Planning</h2>
+        <div class="insights-grid">
+            <article class="insight-card">
+                <img class="responsive-img" src="https://images.unsplash.com/photo-1516387938699-a93567ec168e?w=800&h=500&fit=crop" alt="Planning a safari" loading="lazy">
+                <h3>Plan Like a Pro</h3>
+                <p>Learn when to visit, what to pack, and how to prepare for the Kenyan wilderness.</p>
+            </article>
+            <article class="insight-card">
+                <img class="responsive-img" src="kenyan.culture.jpg" alt="Local cultural experience" loading="lazy">
+                <h3>Cultural Immersion</h3>
+                <p>Discover how local communities, traditions, and conservation are woven into every tour.</p>
+            </article>
+            <article class="insight-card">
+                <img class="responsive-img" src="photo.kenya.jpg" alt="Wildlife photography guide" loading="lazy">
+                <h3>Photography Tips</h3>
+                <p>Get insider advice on capturing wildlife moments, landscapes, and unforgettable safari shots.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <h2>Stay Updated</h2>
+        <p>Subscribe to our newsletter for exclusive deals and travel tips</p>
+        <div class="newsletter-form">
+            <input type="email" placeholder="Enter your email" id="emailInput">
+            <button class="subscribe-btn">Subscribe</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About G Tours</h3>
+                <p>Leading provider of authentic safari and adventure tours across Kenya.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="attractions.html">Attractions</a></li>
+                    <li><a href="safari.html">Tours</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="fa-solid fa-location-crosshairs"></i> Nairobi, Kenya</p>
+                <p><i class="fa-duotone fa-solid fa-phone"></i> +254 707 135 305</p>
+                <p><i class="fa-regular fa-at"></i> garethmarete11@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                  <a  class="social-icon" href="https://instagram.com/lover_of_feet_5" target="_blank">
+         <ion-icon name="logo-instagram"></ion-icon>
+
+           <a  class="social-icon" href="https://twitter.com/@grt22e445" target="_blank">
+         <ion-icon name="logo-twitter"></ion-icon>
+
+         <a  class="social-icon" href="https://wa.me/254707135305" target="_blank">
+         <ion-icon name="logo-whatsapp"></ion-icon>
+
+         <a  class="social-icon" href="https://mailto:garethmarete11@gmail.com" target="_blank">
+         <ion-icon name="mail-outline"></ion-icon>
+    </a>
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 G Tours Kenya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
