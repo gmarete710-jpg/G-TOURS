@@ -73,6 +73,214 @@ navLinks.forEach(link => {
     });
 });
 
+const AUTH_STORAGE_KEY = 'gToursGoogleAuth';
+// Replace this placeholder with your real Google OAuth client ID to enable sign-in.
+const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+
+function decodeJwtPayload(token) {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(
+            atob(base64)
+                .split('')
+                .map(function (c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                })
+                .join('')
+        );
+        return JSON.parse(jsonPayload);
+    } catch (error) {
+        return null;
+    }
+}
+
+function updateAuthUI() {
+    const user = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || 'null');
+    const userPill = document.getElementById('userPill');
+    const googleLoginBtn = document.getElementById('googleLoginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const editProfileBtn = document.getElementById('editProfileBtn');
+    const userAvatar = document.querySelector('.user-avatar');
+    const userName = document.querySelector('.user-name');
+
+    if (user && userPill && userAvatar && userName) {
+        userPill.hidden = false;
+        if (googleLoginBtn) googleLoginBtn.style.display = 'none';
+        userAvatar.src = user.picture || 'https://via.placeholder.com/32';
+        userAvatar.alt = user.name || 'User avatar';
+        userName.textContent = user.name || user.email || 'User';
+        if (editProfileBtn) editProfileBtn.style.display = 'inline-flex';
+    } else {
+        if (userPill) userPill.hidden = true;
+        if (googleLoginBtn) googleLoginBtn.style.display = 'flex';
+        if (editProfileBtn) editProfileBtn.style.display = 'none';
+    }
+
+    if (logoutBtn) {
+        logoutBtn.onclick = () => {
+            localStorage.removeItem(AUTH_STORAGE_KEY);
+            updateAuthUI();
+            showNotification('You have been signed out.', 'info');
+        };
+    }
+
+    if (editProfileBtn) {
+        editProfileBtn.onclick = () => openProfileEditor();
+    }
+}
+
+function openProfileEditor() {
+    const user = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || 'null');
+    if (!user) return;
+
+    const content = `
+        <form id="profileEditorForm" class="profile-editor-form">
+            <div class="profile-avatar-preview">
+                <img id="profilePreviewImage" src="${user.picture || 'https://via.placeholder.com/80'}" alt="Profile preview">
+            </div>
+            <div class="profile-field-group">
+                <label for="profileName">Full Name</label>
+                <input type="text" id="profileName" value="${(user.name || '').replace(/"/g, '&quot;')}" />
+            </div>
+            <div class="profile-field-group">
+                <label for="profileEmail">Email</label>
+                <input type="email" id="profileEmail" value="${(user.email || '').replace(/"/g, '&quot;')}" disabled />
+            </div>
+            <div class="profile-field-group">
+                <label for="profilePhone">Phone</label>
+                <input type="tel" id="profilePhone" value="${(user.phone || '').replace(/"/g, '&quot;')}" placeholder="Add your phone number" />
+            </div>
+            <div class="profile-field-group">
+                <label for="profileBio">Bio</label>
+                <textarea id="profileBio" rows="3" placeholder="Tell travelers a bit about yourself">${(user.bio || '').replace(/"/g, '&quot;')}</textarea>
+            </div>
+            <div class="profile-field-group">
+                <label for="profilePhotoUrl">Profile Picture URL</label>
+                <input type="url" id="profilePhotoUrl" value="${(user.picture || '').replace(/"/g, '&quot;')}" placeholder="https://example.com/photo.jpg" />
+            </div>
+            <div class="profile-field-group">
+                <label for="profilePhotoFile">Or upload an image</label>
+                <input type="file" id="profilePhotoFile" accept="image/*" />
+            </div>
+        </form>
+    `;
+
+    const modal = createModal('Edit Profile', content, [
+        {
+            text: 'Save Changes',
+            class: 'btn-primary',
+            callback: () => {
+                const form = document.getElementById('profileEditorForm');
+                if (!form) return;
+
+                const updatedUser = {
+                    ...user,
+                    name: document.getElementById('profileName').value.trim() || user.name,
+                    phone: document.getElementById('profilePhone').value.trim(),
+                    bio: document.getElementById('profileBio').value.trim(),
+                    picture: document.getElementById('profilePhotoUrl').value.trim() || user.picture
+                };
+
+                const fileInput = document.getElementById('profilePhotoFile');
+                if (fileInput && fileInput.files && fileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        updatedUser.picture = e.target.result;
+                        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(updatedUser));
+                        updateAuthUI();
+                        showNotification('Profile updated successfully.', 'success');
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
+                } else {
+                    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(updatedUser));
+                    updateAuthUI();
+                    showNotification('Profile updated successfully.', 'success');
+                }
+
+                modal.remove();
+            }
+        }
+    ]);
+
+    const photoUrlInput = modal.querySelector('#profilePhotoUrl');
+    const photoFileInput = modal.querySelector('#profilePhotoFile');
+    const previewImage = modal.querySelector('#profilePreviewImage');
+
+    if (photoUrlInput && previewImage) {
+        photoUrlInput.addEventListener('input', () => {
+            previewImage.src = photoUrlInput.value || 'https://via.placeholder.com/80';
+        });
+    }
+
+    if (photoFileInput && previewImage) {
+        photoFileInput.addEventListener('change', () => {
+            const file = photoFileInput.files && photoFileInput.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+                modal.querySelector('#profilePhotoUrl').value = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+}
+
+function handleCredentialResponse(response) {
+    const payload = decodeJwtPayload(response.credential);
+    if (!payload) {
+        showNotification('Unable to read your Google profile.', 'error');
+        return;
+    }
+
+    const userProfile = {
+        name: payload.name || payload.email,
+        email: payload.email,
+        picture: payload.picture || '',
+        sub: payload.sub
+    };
+
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(userProfile));
+    updateAuthUI();
+    showNotification(`Welcome, ${payload.given_name || payload.name}!`, 'success');
+}
+
+function initializeGoogleAuth() {
+    const googleLoginBtn = document.getElementById('googleLoginBtn');
+    if (!googleLoginBtn) {
+        return;
+    }
+
+    if (!window.google?.accounts?.id) {
+        googleLoginBtn.innerHTML = '<span class="auth-warning">Google auth script is still loading</span>';
+        return;
+    }
+
+    if (GOOGLE_CLIENT_ID.includes('YOUR_')) {
+        googleLoginBtn.innerHTML = '<span class="auth-warning">Add your Google Client ID in script.js to enable sign-in</span>';
+        googleLoginBtn.style.pointerEvents = 'none';
+        return;
+    }
+
+    google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: handleCredentialResponse,
+        auto_select: false,
+        cancel_on_tap_outside: true
+    });
+
+    google.accounts.id.renderButton(googleLoginBtn, {
+        theme: 'outline',
+        size: 'large',
+        type: 'standard',
+        shape: 'pill',
+        text: 'signin_with'
+    });
+
+    google.accounts.id.prompt();
+}
+
 function showFormMessage(message, type) {
     const formMessage = document.getElementById('formMessage');
     if (formMessage) {
@@ -418,6 +626,9 @@ window.addEventListener('load', () => {
             link.classList.remove('active');
         }
     });
+
+    updateAuthUI();
+    initializeGoogleAuth();
 });
 
 // ===== FAQACCORDION =====
