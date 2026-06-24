@@ -150,6 +150,17 @@ select {
     min-height: 40px;
 }
 
+.auth-warning {
+    color: #fff;
+    background: rgba(231, 76, 60, 0.85);
+    border-radius: 8px;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    max-width: 220px;
+    text-align: center;
+}
+
 .edit-profile-btn {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.28);
@@ -172,6 +183,8 @@ select {
 
 .profile-avatar-preview {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
@@ -180,6 +193,18 @@ select {
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.profile-avatar-hint {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #666;
+    text-align: center;
+}
+
+.profile-field-note {
+    font-size: 0.8rem;
+    color: #777;
 }
 
 .profile-field-group {
@@ -221,6 +246,13 @@ select {
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
 }
 
 .user-name {

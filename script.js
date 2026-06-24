@@ -74,8 +74,48 @@ navLinks.forEach(link => {
 });
 
 const AUTH_STORAGE_KEY = 'gToursGoogleAuth';
-// Replace this placeholder with your real Google OAuth client ID to enable sign-in.
-const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+const MAX_PROFILE_IMAGE_BYTES = 2 * 1024 * 1024;
+
+function getGoogleClientId() {
+    return window.GOOGLE_AUTH_CONFIG?.clientId || '';
+}
+
+function escapeHtml(value) {
+    if (!value) return '';
+    const div = document.createElement('div');
+    div.textContent = value;
+    return div.innerHTML;
+}
+
+function getStoredUser() {
+    try {
+        return JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || 'null');
+    } catch (error) {
+        return null;
+    }
+}
+
+function saveUser(user) {
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+}
+
+function mergeUserProfile(googleProfile, existing) {
+    if (!existing || existing.sub !== googleProfile.sub) {
+        return {
+            ...googleProfile,
+            phone: '',
+            bio: ''
+        };
+    }
+
+    return {
+        ...googleProfile,
+        name: existing.name || googleProfile.name,
+        phone: existing.phone || '',
+        bio: existing.bio || '',
+        picture: existing.picture || googleProfile.picture
+    };
+}
 
 function decodeJwtPayload(token) {
     try {
@@ -96,7 +136,7 @@ function decodeJwtPayload(token) {
 }
 
 function updateAuthUI() {
-    const user = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || 'null');
+    const user = getStoredUser();
     const userPill = document.getElementById('userPill');
     const googleLoginBtn = document.getElementById('googleLoginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
@@ -107,10 +147,12 @@ function updateAuthUI() {
     if (user && userPill && userAvatar && userName) {
         userPill.hidden = false;
         if (googleLoginBtn) googleLoginBtn.style.display = 'none';
-        userAvatar.src = user.picture || 'https://via.placeholder.com/32';
+        userAvatar.src = user.picture || '6596121.png';
         userAvatar.alt = user.name || 'User avatar';
+        userAvatar.title = 'Edit your profile';
         userName.textContent = user.name || user.email || 'User';
         if (editProfileBtn) editProfileBtn.style.display = 'inline-flex';
+        prefillAuthenticatedForms(user);
     } else {
         if (userPill) userPill.hidden = true;
         if (googleLoginBtn) googleLoginBtn.style.display = 'flex';
@@ -118,50 +160,105 @@ function updateAuthUI() {
     }
 
     if (logoutBtn) {
-        logoutBtn.onclick = () => {
-            localStorage.removeItem(AUTH_STORAGE_KEY);
-            updateAuthUI();
-            showNotification('You have been signed out.', 'info');
-        };
+        logoutBtn.onclick = () => signOut();
     }
 
     if (editProfileBtn) {
         editProfileBtn.onclick = () => openProfileEditor();
     }
+
+    if (userAvatar) {
+        userAvatar.onclick = () => {
+            if (getStoredUser()) openProfileEditor();
+        };
+    }
+}
+
+function prefillAuthenticatedForms(user) {
+    const contactName = document.getElementById('name');
+    const contactEmail = document.getElementById('email');
+    const contactPhone = document.getElementById('phone');
+
+    if (contactName && !contactName.value.trim()) {
+        contactName.value = user.name || '';
+    }
+    if (contactEmail && !contactEmail.value.trim()) {
+        contactEmail.value = user.email || '';
+    }
+    if (contactPhone && !contactPhone.value.trim() && user.phone) {
+        contactPhone.value = user.phone;
+    }
+}
+
+function signOut() {
+    const user = getStoredUser();
+
+    if (window.google?.accounts?.id) {
+        google.accounts.id.disableAutoSelect();
+        if (user?.email) {
+            google.accounts.id.revoke(user.email, () => {});
+        }
+    }
+
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+    updateAuthUI();
+    showNotification('You have been signed out.', 'info');
+}
+
+function saveProfileChanges(user, modal) {
+    const updatedUser = {
+        ...user,
+        name: document.getElementById('profileName').value.trim() || user.name,
+        phone: document.getElementById('profilePhone').value.trim(),
+        bio: document.getElementById('profileBio').value.trim(),
+        picture: document.getElementById('profilePhotoUrl').value.trim() || user.picture
+    };
+
+    saveUser(updatedUser);
+    updateAuthUI();
+    showNotification('Profile updated successfully.', 'success');
+    modal.remove();
 }
 
 function openProfileEditor() {
-    const user = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || 'null');
-    if (!user) return;
+    const user = getStoredUser();
+    if (!user) {
+        showNotification('Sign in with Google to edit your profile.', 'info');
+        return;
+    }
 
+    const defaultAvatar = user.picture || '6596121.png';
     const content = `
         <form id="profileEditorForm" class="profile-editor-form">
             <div class="profile-avatar-preview">
-                <img id="profilePreviewImage" src="${user.picture || 'https://via.placeholder.com/80'}" alt="Profile preview">
+                <img id="profilePreviewImage" src="${escapeHtml(defaultAvatar)}" alt="Profile preview">
+                <p class="profile-avatar-hint">Upload a photo or paste an image URL</p>
             </div>
             <div class="profile-field-group">
                 <label for="profileName">Full Name</label>
-                <input type="text" id="profileName" value="${(user.name || '').replace(/"/g, '&quot;')}" />
+                <input type="text" id="profileName" value="${escapeHtml(user.name || '')}" maxlength="80" />
             </div>
             <div class="profile-field-group">
                 <label for="profileEmail">Email</label>
-                <input type="email" id="profileEmail" value="${(user.email || '').replace(/"/g, '&quot;')}" disabled />
+                <input type="email" id="profileEmail" value="${escapeHtml(user.email || '')}" disabled />
+                <small class="profile-field-note">Email is managed by your Google account</small>
             </div>
             <div class="profile-field-group">
                 <label for="profilePhone">Phone</label>
-                <input type="tel" id="profilePhone" value="${(user.phone || '').replace(/"/g, '&quot;')}" placeholder="Add your phone number" />
+                <input type="tel" id="profilePhone" value="${escapeHtml(user.phone || '')}" placeholder="Add your phone number" maxlength="20" />
             </div>
             <div class="profile-field-group">
                 <label for="profileBio">Bio</label>
-                <textarea id="profileBio" rows="3" placeholder="Tell travelers a bit about yourself">${(user.bio || '').replace(/"/g, '&quot;')}</textarea>
+                <textarea id="profileBio" rows="3" maxlength="280" placeholder="Tell travelers a bit about yourself">${escapeHtml(user.bio || '')}</textarea>
             </div>
             <div class="profile-field-group">
                 <label for="profilePhotoUrl">Profile Picture URL</label>
-                <input type="url" id="profilePhotoUrl" value="${(user.picture || '').replace(/"/g, '&quot;')}" placeholder="https://example.com/photo.jpg" />
+                <input type="url" id="profilePhotoUrl" value="${escapeHtml(user.picture && !user.picture.startsWith('data:') ? user.picture : '')}" placeholder="https://example.com/photo.jpg" />
             </div>
             <div class="profile-field-group">
                 <label for="profilePhotoFile">Or upload an image</label>
-                <input type="file" id="profilePhotoFile" accept="image/*" />
+                <input type="file" id="profilePhotoFile" accept="image/jpeg,image/png,image/webp,image/gif" />
+                <small class="profile-field-note">Max size 2 MB. JPG, PNG, WebP, or GIF.</small>
             </div>
         </form>
     `;
@@ -174,31 +271,34 @@ function openProfileEditor() {
                 const form = document.getElementById('profileEditorForm');
                 if (!form) return;
 
-                const updatedUser = {
-                    ...user,
-                    name: document.getElementById('profileName').value.trim() || user.name,
-                    phone: document.getElementById('profilePhone').value.trim(),
-                    bio: document.getElementById('profileBio').value.trim(),
-                    picture: document.getElementById('profilePhotoUrl').value.trim() || user.picture
-                };
-
                 const fileInput = document.getElementById('profilePhotoFile');
-                if (fileInput && fileInput.files && fileInput.files[0]) {
+                const selectedFile = fileInput?.files?.[0];
+
+                if (selectedFile) {
+                    if (selectedFile.size > MAX_PROFILE_IMAGE_BYTES) {
+                        showNotification('Profile image must be 2 MB or smaller.', 'error');
+                        return;
+                    }
+
                     const reader = new FileReader();
                     reader.onload = function (e) {
-                        updatedUser.picture = e.target.result;
-                        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(updatedUser));
+                        const updatedUser = {
+                            ...user,
+                            name: document.getElementById('profileName').value.trim() || user.name,
+                            phone: document.getElementById('profilePhone').value.trim(),
+                            bio: document.getElementById('profileBio').value.trim(),
+                            picture: e.target.result
+                        };
+                        saveUser(updatedUser);
                         updateAuthUI();
                         showNotification('Profile updated successfully.', 'success');
+                        modal.remove();
                     };
-                    reader.readAsDataURL(fileInput.files[0]);
-                } else {
-                    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(updatedUser));
-                    updateAuthUI();
-                    showNotification('Profile updated successfully.', 'success');
+                    reader.readAsDataURL(selectedFile);
+                    return;
                 }
 
-                modal.remove();
+                saveProfileChanges(user, modal);
             }
         }
     ]);
@@ -209,18 +309,27 @@ function openProfileEditor() {
 
     if (photoUrlInput && previewImage) {
         photoUrlInput.addEventListener('input', () => {
-            previewImage.src = photoUrlInput.value || 'https://via.placeholder.com/80';
+            previewImage.src = photoUrlInput.value.trim() || defaultAvatar;
         });
     }
 
     if (photoFileInput && previewImage) {
         photoFileInput.addEventListener('change', () => {
-            const file = photoFileInput.files && photoFileInput.files[0];
+            const file = photoFileInput.files?.[0];
             if (!file) return;
+
+            if (file.size > MAX_PROFILE_IMAGE_BYTES) {
+                showNotification('Profile image must be 2 MB or smaller.', 'error');
+                photoFileInput.value = '';
+                return;
+            }
+
             const reader = new FileReader();
             reader.onload = function (e) {
                 previewImage.src = e.target.result;
-                modal.querySelector('#profilePhotoUrl').value = e.target.result;
+                if (photoUrlInput) {
+                    photoUrlInput.value = '';
+                }
             };
             reader.readAsDataURL(file);
         });
@@ -234,51 +343,65 @@ function handleCredentialResponse(response) {
         return;
     }
 
-    const userProfile = {
+    const googleProfile = {
         name: payload.name || payload.email,
         email: payload.email,
         picture: payload.picture || '',
         sub: payload.sub
     };
 
-    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(userProfile));
+    const userProfile = mergeUserProfile(googleProfile, getStoredUser());
+    saveUser(userProfile);
     updateAuthUI();
     showNotification(`Welcome, ${payload.given_name || payload.name}!`, 'success');
 }
 
-function initializeGoogleAuth() {
+function initializeGoogleAuth(retryCount = 0) {
     const googleLoginBtn = document.getElementById('googleLoginBtn');
     if (!googleLoginBtn) {
         return;
     }
 
     if (!window.google?.accounts?.id) {
-        googleLoginBtn.innerHTML = '<span class="auth-warning">Google auth script is still loading</span>';
+        if (retryCount < 24) {
+            setTimeout(() => initializeGoogleAuth(retryCount + 1), 250);
+            return;
+        }
+
+        googleLoginBtn.innerHTML = '<span class="auth-warning">Could not load Google Sign-In. Check your connection.</span>';
         return;
     }
 
-    if (GOOGLE_CLIENT_ID.includes('YOUR_')) {
-        googleLoginBtn.innerHTML = '<span class="auth-warning">Add your Google Client ID in script.js to enable sign-in</span>';
+    const clientId = getGoogleClientId();
+    if (!clientId || clientId.includes('YOUR_')) {
+        googleLoginBtn.innerHTML = '<span class="auth-warning">Add your Google Client ID in auth-config.js to enable sign-in</span>';
         googleLoginBtn.style.pointerEvents = 'none';
         return;
     }
 
     google.accounts.id.initialize({
-        client_id: GOOGLE_CLIENT_ID,
+        client_id: clientId,
         callback: handleCredentialResponse,
         auto_select: false,
-        cancel_on_tap_outside: true
+        cancel_on_tap_outside: true,
+        context: 'signin',
+        ux_mode: 'popup',
+        itp_support: true
     });
 
+    googleLoginBtn.innerHTML = '';
     google.accounts.id.renderButton(googleLoginBtn, {
         theme: 'outline',
         size: 'large',
         type: 'standard',
         shape: 'pill',
-        text: 'signin_with'
+        text: 'signin_with',
+        logo_alignment: 'left'
     });
 
-    google.accounts.id.prompt();
+    if (!getStoredUser()) {
+        google.accounts.id.prompt();
+    }
 }
 
 function showFormMessage(message, type) {
@@ -616,6 +739,11 @@ document.querySelectorAll('.service-card, .package-card, .reason-card, .team-mem
 });
 
 // ===== ACTIVE NAV LINK =====
+function bootAuth() {
+    updateAuthUI();
+    initializeGoogleAuth();
+}
+
 window.addEventListener('load', () => {
     const currentPage = window.location.pathname.split('/').pop();
     navLinks.forEach(link => {
@@ -627,8 +755,7 @@ window.addEventListener('load', () => {
         }
     });
 
-    updateAuthUI();
-    initializeGoogleAuth();
+    bootAuth();
 });
 
 // ===== FAQACCORDION =====
