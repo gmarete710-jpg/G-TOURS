@@ -10,5 +10,5 @@
  * 4. Paste your Client ID below (ends with .apps.googleusercontent.com)
  */
 window.GOOGLE_AUTH_CONFIG = {
-    clientId: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'
+    clientId: '887816370426-m84c3v5nuodec9bgclaak5nqbo903deu.apps.googleusercontent.com'
 };
