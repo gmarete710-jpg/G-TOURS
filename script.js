@@ -473,6 +473,259 @@ function createModal(title, content, actions = []) {
     return modal;
 }
 
+const DASHBOARD_STORAGE_KEY = 'gToursDashboardContent';
+const defaultDashboardContent = {
+    siteName: 'G TOURS KENYA',
+    attractionsHeaderTitle: "Kenya's Top Tourist Attractions",
+    attractionsHeaderText: 'Explore the most stunning destinations in Kenya',
+    safariHeaderTitle: 'Safari Tours & Packages',
+    safariHeaderText: 'Choose from our expertly crafted safari experiences',
+    aboutHeaderTitle: 'About G Tours Kenya',
+    aboutHeaderText: 'Your Gateway to African Adventure Since 2010',
+    contactHeaderTitle: 'Get In Touch',
+    contactHeaderText: "Have questions? We'd love to hear from you!",
+    heroTitle: 'Welcome to G Tours Kenya',
+    heroSubtitle: 'Experience the Wonder of African Wildlife and the beauty of Kenyan landscapes',
+    heroCta: 'Start Your Adventure',
+    featuredTitle1: 'Masai Mara',
+    featuredText1: 'Witness the Great Migration and encounter Africa\'s "Big Five"',
+    featuredTitle2: 'Mount Kenya',
+    featuredText2: 'Conquer East Africa\'s second-highest peak',
+    featuredTitle3: 'Amboseli',
+    featuredText3: 'Stunning views of Kilimanjaro with incredible wildlife',
+    featuredTitle4: 'Tsavo',
+    featuredText4: 'Africa\'s largest national park with red elephants',
+    serviceTitle1: 'Wildlife Safari',
+    serviceText1: 'Professional guided safari tours to encounter Africa\'s incredible wildlife',
+    serviceTitle2: 'Camping Adventures',
+    serviceText2: 'Experience the raw beauty of nature under the stars',
+    serviceTitle3: 'Hiking Expeditions',
+    serviceText3: 'Trek through mountains and valleys with expert guides',
+    serviceTitle4: 'Photography Tours',
+    serviceText4: 'Capture breathtaking moments with professional photography guides',
+    serviceTitle5: 'Luxury Accommodations',
+    serviceText5: 'Stay in premium lodges and resorts with world-class service',
+    serviceTitle6: 'Family Packages',
+    serviceText6: 'Create unforgettable memories with tailored family tours',
+    serviceTitle7: 'Custom Itineraries',
+    serviceText7: 'Design your dream safari of your preference with our expert travel planners',
+    newsletterTitle: 'Stay Updated',
+    newsletterText: 'Subscribe to our newsletter for exclusive deals and travel tips',
+    footerDescription: 'Leading provider of authentic safari and adventure tours across Kenya.',
+    footerLocation: 'Nairobi, Kenya',
+    footerPhone: '+254 707 135 305',
+    footerEmail: 'garethmarete11@gmail.com'
+};
+
+function getDashboardContent() {
+    try {
+        const saved = localStorage.getItem(DASHBOARD_STORAGE_KEY);
+        return saved ? { ...defaultDashboardContent, ...JSON.parse(saved) } : { ...defaultDashboardContent };
+    } catch (error) {
+        return { ...defaultDashboardContent };
+    }
+}
+
+function saveDashboardContent(content) {
+    localStorage.setItem(DASHBOARD_STORAGE_KEY, JSON.stringify(content));
+}
+
+function applyDashboardContent(content) {
+    Object.entries(content).forEach(([key, value]) => {
+        const element = document.querySelector(`[data-editable="${key}"]`);
+        if (element) {
+            element.textContent = value;
+        }
+    });
+
+    if (content.siteName) {
+        document.title = `${content.siteName} - G Tours Kenya`;
+    }
+}
+
+function openDashboard() {
+    const panel = document.getElementById('dashboardPanel');
+    const backdrop = document.getElementById('dashboardBackdrop');
+    if (!panel || !backdrop) return;
+
+    const content = getDashboardContent();
+    panel.innerHTML = `
+        <h3>Website Dashboard</h3>
+        <p>Update the homepage content here. Changes are saved in your browser and appear instantly.</p>
+        <div class="dashboard-grid">
+            <div class="dashboard-field">
+                <label for="dashboardSiteName">Site name</label>
+                <input id="dashboardSiteName" value="${escapeHtml(content.siteName || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardAttractionsHeaderTitle">Attractions page heading</label>
+                <input id="dashboardAttractionsHeaderTitle" value="${escapeHtml(content.attractionsHeaderTitle || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardAttractionsHeaderText">Attractions page subtitle</label>
+                <input id="dashboardAttractionsHeaderText" value="${escapeHtml(content.attractionsHeaderText || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardSafariHeaderTitle">Safari page heading</label>
+                <input id="dashboardSafariHeaderTitle" value="${escapeHtml(content.safariHeaderTitle || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardSafariHeaderText">Safari page subtitle</label>
+                <input id="dashboardSafariHeaderText" value="${escapeHtml(content.safariHeaderText || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardAboutHeaderTitle">About page heading</label>
+                <input id="dashboardAboutHeaderTitle" value="${escapeHtml(content.aboutHeaderTitle || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardAboutHeaderText">About page subtitle</label>
+                <input id="dashboardAboutHeaderText" value="${escapeHtml(content.aboutHeaderText || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardContactHeaderTitle">Contact page heading</label>
+                <input id="dashboardContactHeaderTitle" value="${escapeHtml(content.contactHeaderTitle || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardContactHeaderText">Contact page subtitle</label>
+                <input id="dashboardContactHeaderText" value="${escapeHtml(content.contactHeaderText || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardHeroTitle">Hero title</label>
+                <input id="dashboardHeroTitle" value="${escapeHtml(content.heroTitle || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardHeroSubtitle">Hero subtitle</label>
+                <textarea id="dashboardHeroSubtitle" rows="2">${escapeHtml(content.heroSubtitle || '')}</textarea>
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardHeroCta">Hero button</label>
+                <input id="dashboardHeroCta" value="${escapeHtml(content.heroCta || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFeaturedTitle1">Featured destination 1</label>
+                <input id="dashboardFeaturedTitle1" value="${escapeHtml(content.featuredTitle1 || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFeaturedText1">Featured description 1</label>
+                <textarea id="dashboardFeaturedText1" rows="2">${escapeHtml(content.featuredText1 || '')}</textarea>
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFeaturedTitle2">Featured destination 2</label>
+                <input id="dashboardFeaturedTitle2" value="${escapeHtml(content.featuredTitle2 || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFeaturedText2">Featured description 2</label>
+                <textarea id="dashboardFeaturedText2" rows="2">${escapeHtml(content.featuredText2 || '')}</textarea>
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFeaturedTitle3">Featured destination 3</label>
+                <input id="dashboardFeaturedTitle3" value="${escapeHtml(content.featuredTitle3 || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFeaturedText3">Featured description 3</label>
+                <textarea id="dashboardFeaturedText3" rows="2">${escapeHtml(content.featuredText3 || '')}</textarea>
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFeaturedTitle4">Featured destination 4</label>
+                <input id="dashboardFeaturedTitle4" value="${escapeHtml(content.featuredTitle4 || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFeaturedText4">Featured description 4</label>
+                <textarea id="dashboardFeaturedText4" rows="2">${escapeHtml(content.featuredText4 || '')}</textarea>
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardServiceTitle1">Service 1</label>
+                <input id="dashboardServiceTitle1" value="${escapeHtml(content.serviceTitle1 || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardServiceText1">Service 1 description</label>
+                <textarea id="dashboardServiceText1" rows="2">${escapeHtml(content.serviceText1 || '')}</textarea>
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardNewsletterTitle">Newsletter heading</label>
+                <input id="dashboardNewsletterTitle" value="${escapeHtml(content.newsletterTitle || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardNewsletterText">Newsletter text</label>
+                <textarea id="dashboardNewsletterText" rows="2">${escapeHtml(content.newsletterText || '')}</textarea>
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFooterDescription">Footer description</label>
+                <textarea id="dashboardFooterDescription" rows="2">${escapeHtml(content.footerDescription || '')}</textarea>
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFooterLocation">Footer location</label>
+                <input id="dashboardFooterLocation" value="${escapeHtml(content.footerLocation || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFooterPhone">Footer phone</label>
+                <input id="dashboardFooterPhone" value="${escapeHtml(content.footerPhone || '')}" />
+            </div>
+            <div class="dashboard-field">
+                <label for="dashboardFooterEmail">Footer email</label>
+                <input id="dashboardFooterEmail" value="${escapeHtml(content.footerEmail || '')}" />
+            </div>
+        </div>
+        <div class="dashboard-actions">
+            <button class="secondary" type="button" id="dashboardResetBtn">Reset</button>
+            <button class="primary" type="button" id="dashboardSaveBtn">Save Changes</button>
+        </div>
+    `;
+
+    panel.classList.add('active');
+    backdrop.classList.add('active');
+
+    document.getElementById('dashboardSaveBtn').addEventListener('click', () => {
+        const updatedContent = {
+            ...content,
+            siteName: document.getElementById('dashboardSiteName').value.trim() || defaultDashboardContent.siteName,
+            attractionsHeaderTitle: document.getElementById('dashboardAttractionsHeaderTitle').value.trim() || defaultDashboardContent.attractionsHeaderTitle,
+            attractionsHeaderText: document.getElementById('dashboardAttractionsHeaderText').value.trim() || defaultDashboardContent.attractionsHeaderText,
+            safariHeaderTitle: document.getElementById('dashboardSafariHeaderTitle').value.trim() || defaultDashboardContent.safariHeaderTitle,
+            safariHeaderText: document.getElementById('dashboardSafariHeaderText').value.trim() || defaultDashboardContent.safariHeaderText,
+            aboutHeaderTitle: document.getElementById('dashboardAboutHeaderTitle').value.trim() || defaultDashboardContent.aboutHeaderTitle,
+            aboutHeaderText: document.getElementById('dashboardAboutHeaderText').value.trim() || defaultDashboardContent.aboutHeaderText,
+            contactHeaderTitle: document.getElementById('dashboardContactHeaderTitle').value.trim() || defaultDashboardContent.contactHeaderTitle,
+            contactHeaderText: document.getElementById('dashboardContactHeaderText').value.trim() || defaultDashboardContent.contactHeaderText,
+            heroTitle: document.getElementById('dashboardHeroTitle').value.trim() || defaultDashboardContent.heroTitle,
+            heroSubtitle: document.getElementById('dashboardHeroSubtitle').value.trim() || defaultDashboardContent.heroSubtitle,
+            heroCta: document.getElementById('dashboardHeroCta').value.trim() || defaultDashboardContent.heroCta,
+            featuredTitle1: document.getElementById('dashboardFeaturedTitle1').value.trim() || defaultDashboardContent.featuredTitle1,
+            featuredText1: document.getElementById('dashboardFeaturedText1').value.trim() || defaultDashboardContent.featuredText1,
+            featuredTitle2: document.getElementById('dashboardFeaturedTitle2').value.trim() || defaultDashboardContent.featuredTitle2,
+            featuredText2: document.getElementById('dashboardFeaturedText2').value.trim() || defaultDashboardContent.featuredText2,
+            featuredTitle3: document.getElementById('dashboardFeaturedTitle3').value.trim() || defaultDashboardContent.featuredTitle3,
+            featuredText3: document.getElementById('dashboardFeaturedText3').value.trim() || defaultDashboardContent.featuredText3,
+            featuredTitle4: document.getElementById('dashboardFeaturedTitle4').value.trim() || defaultDashboardContent.featuredTitle4,
+            featuredText4: document.getElementById('dashboardFeaturedText4').value.trim() || defaultDashboardContent.featuredText4,
+            newsletterTitle: document.getElementById('dashboardNewsletterTitle').value.trim() || defaultDashboardContent.newsletterTitle,
+            newsletterText: document.getElementById('dashboardNewsletterText').value.trim() || defaultDashboardContent.newsletterText,
+            footerDescription: document.getElementById('dashboardFooterDescription').value.trim() || defaultDashboardContent.footerDescription,
+            footerLocation: document.getElementById('dashboardFooterLocation').value.trim() || defaultDashboardContent.footerLocation,
+            footerPhone: document.getElementById('dashboardFooterPhone').value.trim() || defaultDashboardContent.footerPhone,
+            footerEmail: document.getElementById('dashboardFooterEmail').value.trim() || defaultDashboardContent.footerEmail
+        };
+        saveDashboardContent(updatedContent);
+        applyDashboardContent(updatedContent);
+        closeDashboard();
+        showNotification('Homepage content updated.', 'success');
+    });
+
+    document.getElementById('dashboardResetBtn').addEventListener('click', () => {
+        saveDashboardContent(defaultDashboardContent);
+        applyDashboardContent(defaultDashboardContent);
+        closeDashboard();
+        showNotification('Homepage content reset to defaults.', 'info');
+    });
+}
+
+function closeDashboard() {
+    const panel = document.getElementById('dashboardPanel');
+    const backdrop = document.getElementById('dashboardBackdrop');
+    if (panel) panel.classList.remove('active');
+    if (backdrop) backdrop.classList.remove('active');
+}
+
 // ===== PACKAGE DETAIL MODAL =====
 function showPackageDetails(packageName, packageDesc, price) {
     const content = `
@@ -754,6 +1007,25 @@ window.addEventListener('load', () => {
             link.classList.remove('active');
         }
     });
+
+    const dashboardToggle = document.getElementById('dashboardToggle');
+    const dashboardBackdrop = document.createElement('div');
+    dashboardBackdrop.id = 'dashboardBackdrop';
+    dashboardBackdrop.className = 'dashboard-backdrop';
+    const dashboardPanel = document.createElement('div');
+    dashboardPanel.id = 'dashboardPanel';
+    dashboardPanel.className = 'dashboard-panel';
+    document.body.appendChild(dashboardBackdrop);
+    document.body.appendChild(dashboardPanel);
+
+    if (dashboardToggle) {
+        dashboardToggle.addEventListener('click', () => openDashboard());
+    }
+
+    dashboardBackdrop.addEventListener('click', closeDashboard);
+
+    const dashboardContent = getDashboardContent();
+    applyDashboardContent(dashboardContent);
 
     bootAuth();
 });

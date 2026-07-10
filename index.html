@@ -27,7 +27,7 @@
         <div class="nav-container">
             <div class="nav-logo">
             
-                <h1>G TOURS KENYA</h1>
+                <h1 data-editable="siteName">G TOURS KENYA</h1>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
@@ -37,6 +37,7 @@
                 <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-auth">
+                <button class="dashboard-toggle" id="dashboardToggle" type="button">Dashboard</button>
                 <div id="googleLoginBtn"></div>
                 <div class="user-pill" id="userPill" hidden>
                      <img class="user-avatar" src="6596121.png" alt="User avatar">
@@ -79,9 +80,9 @@
             </div>
         </div>
         <div class="hero-overlay">
-            <h1 class="hero-title">Welcome to G Tours Kenya</h1>
-            <p class="hero-subtitle">Experience the Wonder of African Wildlife and the beauty of Kenyan landscapes</p>
-            <button class="cta-button">Start Your Adventure</button>
+            <h1 class="hero-title" data-editable="heroTitle">Welcome to G Tours Kenya</h1>
+            <p class="hero-subtitle" data-editable="heroSubtitle">Experience the Wonder of African Wildlife and the beauty of Kenyan landscapes</p>
+            <button class="cta-button" data-editable="heroCta">Start Your Adventure</button>
         </div>
         <div class="carousel-controls">
             <button class="prev">❮</button>
@@ -95,26 +96,26 @@
         <div class="attractions-grid">
             <div class="attraction-card" data-destination="masai-mara">
                 <div class="attraction-image"><img class="responsive-img" src="mara safaris.jpg" alt="Masai Mara safari" loading="lazy"></div>
-                <h3>Masai Mara</h3>
-                <p>Witness the Great Migration and encounter Africa's "Big Five"</p>
+                <h3 data-editable="featuredTitle1">Masai Mara</h3>
+                <p data-editable="featuredText1">Witness the Great Migration and encounter Africa's "Big Five"</p>
                 <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
             </div>
             <div class="attraction-card" data-destination="mount-kenya">
                 <div class="attraction-image"><img class="responsive-img" src="mt.kenya.jpg" alt="Mount Kenya landscape" loading="lazy"></div>
-                <h3>Mount Kenya</h3>
-                <p>Conquer East Africa's second-highest peak</p>
+                <h3 data-editable="featuredTitle2">Mount Kenya</h3>
+                <p data-editable="featuredText2">Conquer East Africa's second-highest peak</p>
                 <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
             </div>
             <div class="attraction-card" data-destination="amboseli">
                 <div class="attraction-image"><img class="responsive-img" src="giraffe.amboseli.jpg" alt="Amboseli elephants and Kilimanjaro" loading="lazy"></div>
-                <h3>Amboseli</h3>
-                <p>Stunning views of Kilimanjaro with incredible wildlife</p>
+                <h3 data-editable="featuredTitle3">Amboseli</h3>
+                <p data-editable="featuredText3">Stunning views of Kilimanjaro with incredible wildlife</p>
                 <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
             </div>
             <div class="attraction-card" data-destination="tsavo">
                 <div class="attraction-image"><img class="responsive-img" src="tsavo.park.jpg" alt="Tsavo wildlife landscape" loading="lazy"></div>
-                <h3>Tsavo</h3>
-                <p>Africa's largest national park with red elephants</p>
+                <h3 data-editable="featuredTitle4">Tsavo</h3>
+                <p data-editable="featuredText4">Africa's largest national park with red elephants</p>
                 <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
             </div>
         </div>
@@ -126,38 +127,38 @@
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-icon"></div>
-                <h3>Wildlife Safari</h3>
-                <p>Professional guided safari tours to encounter Africa's incredible wildlife</p>
+                <h3 data-editable="serviceTitle1">Wildlife Safari</h3>
+                <p data-editable="serviceText1">Professional guided safari tours to encounter Africa's incredible wildlife</p>
             </div>
             <div class="service-card">
                 <div class="service-icon"></div>
-                <h3>Camping Adventures</h3>
-                <p>Experience the raw beauty of nature under the stars</p>
+                <h3 data-editable="serviceTitle2">Camping Adventures</h3>
+                <p data-editable="serviceText2">Experience the raw beauty of nature under the stars</p>
             </div>
             <div class="service-card">
                 <div class="service-icon"></div>
-                <h3>Hiking Expeditions</h3>
-                <p>Trek through mountains and valleys with expert guides</p>
+                <h3 data-editable="serviceTitle3">Hiking Expeditions</h3>
+                <p data-editable="serviceText3">Trek through mountains and valleys with expert guides</p>
             </div>
             <div class="service-card">
                 <div class="service-icon"></div>
-                <h3>Photography Tours</h3>
-                <p>Capture breathtaking moments with professional photography guides</p>
+                <h3 data-editable="serviceTitle4">Photography Tours</h3>
+                <p data-editable="serviceText4">Capture breathtaking moments with professional photography guides</p>
             </div>
             <div class="service-card">
                 <div class="service-icon"></div>
-                <h3>Luxury Accommodations</h3>
-                <p>Stay in premium lodges and resorts with world-class service</p>
+                <h3 data-editable="serviceTitle5">Luxury Accommodations</h3>
+                <p data-editable="serviceText5">Stay in premium lodges and resorts with world-class service</p>
             </div>
             <div class="service-card">
                 <div class="service-icon"></div>
-                <h3>Family Packages</h3>
-                <p>Create unforgettable memories with tailored family tours</p>
+                <h3 data-editable="serviceTitle6">Family Packages</h3>
+                <p data-editable="serviceText6">Create unforgettable memories with tailored family tours</p>
              </div>
                 <div class="service-card">
                     <div class="service-icon"></div>
-                    <h3>Custom Itineraries</h3>
-                    <p>Design your dream safari of your preference with our expert travel planners</p>
+                    <h3 data-editable="serviceTitle7">Custom Itineraries</h3>
+                    <p data-editable="serviceText7">Design your dream safari of your preference with our expert travel planners</p>
             </div>
         </div>
     </section>
@@ -185,8 +186,8 @@
 
     <!-- Newsletter Section -->
     <section class="newsletter">
-        <h2>Stay Updated</h2>
-        <p>Subscribe to our newsletter for exclusive deals and travel tips</p>
+        <h2 data-editable="newsletterTitle">Stay Updated</h2>
+        <p data-editable="newsletterText">Subscribe to our newsletter for exclusive deals and travel tips</p>
         <div class="newsletter-form">
             <input type="email" placeholder="Enter your email" id="emailInput">
             <button class="subscribe-btn">Subscribe</button>
@@ -198,7 +199,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>About G Tours</h3>
-                <p>Leading provider of authentic safari and adventure tours across Kenya.</p>
+                <p data-editable="footerDescription">Leading provider of authentic safari and adventure tours across Kenya.</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
@@ -211,9 +212,9 @@
             </div>
             <div class="footer-section">
                 <h3>Contact Info</h3>
-                <p><i class="fa-solid fa-location-crosshairs"></i> Nairobi, Kenya</p>
-                <p><i class="fa-duotone fa-solid fa-phone"></i> +254 707 135 305</p>
-                <p><i class="fa-regular fa-at"></i> garethmarete11@gmail.com</p>
+                <p><i class="fa-solid fa-location-crosshairs"></i> <span data-editable="footerLocation">Nairobi, Kenya</span></p>
+                <p><i class="fa-duotone fa-solid fa-phone"></i> <span data-editable="footerPhone">+254 707 135 305</span></p>
+                <p><i class="fa-regular fa-at"></i> <span data-editable="footerEmail">garethmarete11@gmail.com</span></p>
             </div>
             <div class="footer-section">
                   <a  class="social-icon" href="https://instagram.com/lover_of_feet_5" target="_blank">
