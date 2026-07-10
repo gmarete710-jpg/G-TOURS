@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - G Tours Kenya</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="admin">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>G TOURS KENYA</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="attractions.html" class="nav-link">Attractions</a></li>
+                <li class="nav-item"><a href="safari.html" class="nav-link">Safari Tours</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="admin.html" class="nav-link active">Admin</a></li>
+            </ul>
+            <div class="nav-auth">
+                <a class="dashboard-toggle" href="index.html">Back to Site</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="admin-page">
+        <section class="admin-hero">
+            <h1>Website Admin Panel</h1>
+            <p>Manage your homepage content, add new featured destinations, and add new services from this page.</p>
+        </section>
+
+        <section class="admin-card">
+            <h2>Site Content</h2>
+            <form id="siteContentForm" class="admin-form">
+                <div class="admin-form-grid">
+                    <label>
+                        <span>Site name</span>
+                        <input type="text" id="siteName" />
+                    </label>
+                    <label>
+                        <span>Hero title</span>
+                        <input type="text" id="heroTitle" />
+                    </label>
+                    <label>
+                        <span>Hero subtitle</span>
+                        <textarea id="heroSubtitle" rows="3"></textarea>
+                    </label>
+                    <label>
+                        <span>Hero button text</span>
+                        <input type="text" id="heroCta" />
+                    </label>
+                    <label>
+                        <span>Newsletter heading</span>
+                        <input type="text" id="newsletterTitle" />
+                    </label>
+                    <label>
+                        <span>Newsletter text</span>
+                        <textarea id="newsletterText" rows="3"></textarea>
+                    </label>
+                    <label>
+                        <span>Footer description</span>
+                        <textarea id="footerDescription" rows="3"></textarea>
+                    </label>
+                    <label>
+                        <span>Footer location</span>
+                        <input type="text" id="footerLocation" />
+                    </label>
+                    <label>
+                        <span>Footer phone</span>
+                        <input type="text" id="footerPhone" />
+                    </label>
+                    <label>
+                        <span>Footer email</span>
+                        <input type="email" id="footerEmail" />
+                    </label>
+                </div>
+
+                <div class="admin-section-card">
+                    <div class="admin-section-header">
+                        <h3>Featured destinations</h3>
+                        <button type="button" id="addFeaturedBtn" class="secondary-btn">+ Add destination</button>
+                    </div>
+                    <div id="featuredItemsEditor" class="admin-items-list"></div>
+                </div>
+
+                <div class="admin-section-card">
+                    <div class="admin-section-header">
+                        <h3>Hero carousel slides</h3>
+                        <button type="button" id="addSlideBtn" class="secondary-btn">+ Add slide</button>
+                    </div>
+                    <div id="heroSlidesEditor" class="admin-items-list"></div>
+                </div>
+
+                <div class="admin-section-card">
+                    <div class="admin-section-header">
+                        <h3>Travel insights</h3>
+                        <button type="button" id="addInsightBtn" class="secondary-btn">+ Add insight</button>
+                    </div>
+                    <div id="travelInsightsEditor" class="admin-items-list"></div>
+                </div>
+
+                <div class="admin-section-card">
+                    <div class="admin-section-header">
+                        <h3>Services</h3>
+                        <button type="button" id="addServiceBtn" class="secondary-btn">+ Add service</button>
+                    </div>
+                    <div id="servicesItemsEditor" class="admin-items-list"></div>
+                </div>
+
+                <div class="admin-actions">
+                    <button type="submit" class="primary-btn">Save content</button>
+                    <button type="button" id="resetAdminBtn" class="secondary-btn">Reset to defaults</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

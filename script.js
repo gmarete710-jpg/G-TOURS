@@ -1,33 +1,41 @@
 // ===== CAROUSEL FUNCTIONALITY =====
 let currentSlide = 0;
-const slides = document.querySelectorAll('.hero-slide');
+let slides = [];
 let autoSlideInterval;
 
 function showSlide(n) {
+    if (!slides.length) return;
     slides.forEach(slide => slide.classList.remove('active'));
-    slides[n].classList.add('active');
+    currentSlide = (n + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
 }
 
 function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
+    showSlide(currentSlide + 1);
 }
 
 function prevSlide() {
-    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    showSlide(currentSlide);
+    showSlide(currentSlide - 1);
 }
 
 function startAutoSlide() {
-    autoSlideInterval = setInterval(nextSlide, 5000);
+    stopAutoSlide();
+    if (slides.length > 1) {
+        autoSlideInterval = setInterval(nextSlide, 5000);
+    }
 }
 
 function stopAutoSlide() {
     clearInterval(autoSlideInterval);
 }
 
-// Auto-rotate slides every 5 seconds
-startAutoSlide();
+function initializeHeroCarousel() {
+    slides = document.querySelectorAll('.hero-slide');
+    if (!slides.length) return;
+    currentSlide = 0;
+    showSlide(0);
+    startAutoSlide();
+}
 
 // Add event listeners to carousel controls
 const nextBtn = document.querySelector('.next');
@@ -474,6 +482,7 @@ function createModal(title, content, actions = []) {
 }
 
 const DASHBOARD_STORAGE_KEY = 'gToursDashboardContent';
+const ADMIN_STORAGE_KEY = 'gToursAdminContent';
 const defaultDashboardContent = {
     siteName: 'G TOURS KENYA',
     attractionsHeaderTitle: "Kenya's Top Tourist Attractions",
@@ -514,7 +523,24 @@ const defaultDashboardContent = {
     footerDescription: 'Leading provider of authentic safari and adventure tours across Kenya.',
     footerLocation: 'Nairobi, Kenya',
     footerPhone: '+254 707 135 305',
-    footerEmail: 'garethmarete11@gmail.com'
+    footerEmail: 'garethmarete11@gmail.com',
+    heroSlides: [
+        { title: 'LION', subtitle: 'King of the Savanna', image: 'walk.lion.jpg', alt: 'Lion on the savanna' },
+        { title: 'ELEPHANT', subtitle: 'Gentle Giants of Africa', image: 'walking.rhinos.jpg', alt: 'Elephant herd in Kenya' },
+        { title: 'GIRAFFE', subtitle: 'Nature\'s most Magnificent Tower', image: 'landscape.kenya.jpg', alt: 'Giraffe in the wild' }
+    ],
+    travelInsights: [
+        { title: 'Plan Like a Pro', description: 'Learn when to visit, what to pack, and how to prepare for the Kenyan wilderness.', image: 'https://images.unsplash.com/photo-1516387938699-a93567ec168e?w=800&h=500&fit=crop', alt: 'Planning a safari' },
+        { title: 'Cultural Immersion', description: 'Discover how local communities, traditions, and conservation are woven into every tour.', image: 'kenyan.culture.jpg', alt: 'Local cultural experience' },
+        { title: 'Photography Tips', description: 'Get insider advice on capturing wildlife moments, landscapes, and unforgettable safari shots.', image: 'photo.kenya.jpg', alt: 'Wildlife photography guide' }
+    ],
+    featuredItems: [
+        { title: 'Masai Mara', description: 'Witness the Great Migration and encounter Africa\'s "Big Five"' },
+        { title: 'Mount Kenya', description: 'Conquer East Africa\'s second-highest peak' }
+    ],
+    servicesItems: [
+        { title: 'Wildlife Safari', description: 'Professional guided safari tours to encounter Africa\'s incredible wildlife' }
+    ]
 };
 
 function getDashboardContent() {
@@ -528,6 +554,21 @@ function getDashboardContent() {
 
 function saveDashboardContent(content) {
     localStorage.setItem(DASHBOARD_STORAGE_KEY, JSON.stringify(content));
+    window.dispatchEvent(new CustomEvent('siteContentUpdated', { detail: content }));
+}
+
+function getAdminContent() {
+    try {
+        const saved = localStorage.getItem(ADMIN_STORAGE_KEY);
+        return saved ? JSON.parse(saved) : getDashboardContent();
+    } catch (error) {
+        return getDashboardContent();
+    }
+}
+
+function saveAdminContent(content) {
+    localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(content));
+    window.dispatchEvent(new CustomEvent('siteContentUpdated', { detail: content }));
 }
 
 function applyDashboardContent(content) {
@@ -537,6 +578,73 @@ function applyDashboardContent(content) {
             element.textContent = value;
         }
     });
+
+    const heroCarousel = document.querySelector('.hero-carousel');
+    if (heroCarousel) {
+        const heroSlides = Array.isArray(content.heroSlides) && content.heroSlides.length > 0 ? content.heroSlides : defaultDashboardContent.heroSlides;
+        heroCarousel.innerHTML = heroSlides.map((slide, index) => `
+            <div class="hero-slide ${index === 0 ? 'active' : ''}">
+                <img class="hero-slide-image" src="${escapeHtml(slide.image || 'walk.lion.jpg')}" alt="${escapeHtml(slide.alt || slide.title || 'Hero image')}" loading="lazy">
+                <div class="hero-content">
+                    <h2>${escapeHtml(slide.title || '')}</h2>
+                    <p>${escapeHtml(slide.subtitle || '')}</p>
+                </div>
+            </div>
+        `).join('');
+        initializeHeroCarousel();
+    }
+
+    const featuredGrid = document.querySelector('.attractions-grid');
+    if (featuredGrid) {
+        const featuredItems = content.featuredItems || [
+            { title: content.featuredTitle1 || 'Masai Mara', description: content.featuredText1 || 'Witness the Great Migration and encounter Africa\'s "Big Five"' },
+            { title: content.featuredTitle2 || 'Mount Kenya', description: content.featuredText2 || 'Conquer East Africa\'s second-highest peak' },
+            { title: content.featuredTitle3 || 'Amboseli', description: content.featuredText3 || 'Stunning views of Kilimanjaro with incredible wildlife' },
+            { title: content.featuredTitle4 || 'Tsavo', description: content.featuredText4 || 'Africa\'s largest national park with red elephants' }
+        ];
+
+        featuredGrid.innerHTML = featuredItems.map((item, index) => `
+            <div class="attraction-card" data-destination="item-${index}">
+                <div class="attraction-image"><img class="responsive-img" src="mara safaris.jpg" alt="${escapeHtml(item.title || 'Destination')}" loading="lazy"></div>
+                <h3>${escapeHtml(item.title || '')}</h3>
+                <p>${escapeHtml(item.description || '')}</p>
+                <button class="book-btn" style="margin: 10px; width: calc(100% - 20px);">Learn More</button>
+            </div>
+        `).join('');
+    }
+
+    const servicesGrid = document.querySelector('.services-grid');
+    if (servicesGrid) {
+        const servicesItems = content.servicesItems || [
+            { title: content.serviceTitle1 || 'Wildlife Safari', description: content.serviceText1 || 'Professional guided safari tours to encounter Africa\'s incredible wildlife' },
+            { title: content.serviceTitle2 || 'Camping Adventures', description: content.serviceText2 || 'Experience the raw beauty of nature under the stars' },
+            { title: content.serviceTitle3 || 'Hiking Expeditions', description: content.serviceText3 || 'Trek through mountains and valleys with expert guides' },
+            { title: content.serviceTitle4 || 'Photography Tours', description: content.serviceText4 || 'Capture breathtaking moments with professional photography guides' },
+            { title: content.serviceTitle5 || 'Luxury Accommodations', description: content.serviceText5 || 'Stay in premium lodges and resorts with world-class service' },
+            { title: content.serviceTitle6 || 'Family Packages', description: content.serviceText6 || 'Create unforgettable memories with tailored family tours' },
+            { title: content.serviceTitle7 || 'Custom Itineraries', description: content.serviceText7 || 'Design your dream safari of your preference with our expert travel planners' }
+        ];
+
+        servicesGrid.innerHTML = servicesItems.map(item => `
+            <div class="service-card">
+                <div class="service-icon"></div>
+                <h3>${escapeHtml(item.title || '')}</h3>
+                <p>${escapeHtml(item.description || '')}</p>
+            </div>
+        `).join('');
+    }
+
+    const insightsGrid = document.querySelector('.insights-grid');
+    if (insightsGrid) {
+        const insightsItems = Array.isArray(content.travelInsights) && content.travelInsights.length > 0 ? content.travelInsights : defaultDashboardContent.travelInsights;
+        insightsGrid.innerHTML = insightsItems.map(item => `
+            <article class="insight-card">
+                <img class="responsive-img" src="${escapeHtml(item.image || '')}" alt="${escapeHtml(item.alt || item.title || 'Travel insight')}" loading="lazy">
+                <h3>${escapeHtml(item.title || '')}</h3>
+                <p>${escapeHtml(item.description || '')}</p>
+            </article>
+        `).join('');
+    }
 
     if (content.siteName) {
         document.title = `${content.siteName} - G Tours Kenya`;
@@ -724,6 +832,194 @@ function closeDashboard() {
     const backdrop = document.getElementById('dashboardBackdrop');
     if (panel) panel.classList.remove('active');
     if (backdrop) backdrop.classList.remove('active');
+}
+
+function renderAdminPage() {
+    const content = getAdminContent();
+    const featuredEditor = document.getElementById('featuredItemsEditor');
+    const heroSlidesEditor = document.getElementById('heroSlidesEditor');
+    const travelInsightsEditor = document.getElementById('travelInsightsEditor');
+    const servicesEditor = document.getElementById('servicesItemsEditor');
+
+    if (!featuredEditor || !servicesEditor || !heroSlidesEditor || !travelInsightsEditor) return;
+
+    document.getElementById('siteName').value = content.siteName || '';
+    document.getElementById('heroTitle').value = content.heroTitle || '';
+    document.getElementById('heroSubtitle').value = content.heroSubtitle || '';
+    document.getElementById('heroCta').value = content.heroCta || '';
+    document.getElementById('newsletterTitle').value = content.newsletterTitle || '';
+    document.getElementById('newsletterText').value = content.newsletterText || '';
+    document.getElementById('footerDescription').value = content.footerDescription || '';
+    document.getElementById('footerLocation').value = content.footerLocation || '';
+    document.getElementById('footerPhone').value = content.footerPhone || '';
+    document.getElementById('footerEmail').value = content.footerEmail || '';
+
+    featuredEditor.innerHTML = '';
+    const featuredItems = content.featuredItems || [
+        { title: 'Masai Mara', description: 'Witness the Great Migration and encounter Africa\'s "Big Five"' },
+        { title: 'Mount Kenya', description: 'Conquer East Africa\'s second-highest peak' }
+    ];
+
+    featuredItems.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'admin-item-card';
+        card.innerHTML = `
+            <label>
+                <span>Destination title</span>
+                <input type="text" class="featuredTitle" value="${escapeHtml(item.title || '')}" />
+            </label>
+            <label>
+                <span>Description</span>
+                <textarea class="featuredDescription" rows="2">${escapeHtml(item.description || '')}</textarea>
+            </label>
+            <div class="admin-item-actions">
+                <button type="button" class="remove-btn" data-remove-featured="${index}">Remove</button>
+            </div>
+        `;
+        featuredEditor.appendChild(card);
+    });
+
+    heroSlidesEditor.innerHTML = '';
+    const heroSlides = Array.isArray(content.heroSlides) && content.heroSlides.length > 0 ? content.heroSlides : defaultDashboardContent.heroSlides;
+
+    heroSlides.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'admin-item-card';
+        card.innerHTML = `
+            <label>
+                <span>Slide title</span>
+                <input type="text" class="slideTitle" value="${escapeHtml(item.title || '')}" />
+            </label>
+            <label>
+                <span>Slide subtitle</span>
+                <input type="text" class="slideSubtitle" value="${escapeHtml(item.subtitle || '')}" />
+            </label>
+            <label>
+                <span>Image URL</span>
+                <input type="text" class="slideImage" value="${escapeHtml(item.image || '')}" />
+            </label>
+            <label>
+                <span>Alt text</span>
+                <input type="text" class="slideAlt" value="${escapeHtml(item.alt || '')}" />
+            </label>
+            <div class="admin-item-actions">
+                <button type="button" class="remove-btn" data-remove-slide="${index}">Remove</button>
+            </div>
+        `;
+        heroSlidesEditor.appendChild(card);
+    });
+
+    travelInsightsEditor.innerHTML = '';
+    const insightsItems = Array.isArray(content.travelInsights) && content.travelInsights.length > 0 ? content.travelInsights : defaultDashboardContent.travelInsights;
+
+    insightsItems.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'admin-item-card';
+        card.innerHTML = `
+            <label>
+                <span>Insight title</span>
+                <input type="text" class="insightTitle" value="${escapeHtml(item.title || '')}" />
+            </label>
+            <label>
+                <span>Description</span>
+                <textarea class="insightDescription" rows="2">${escapeHtml(item.description || '')}</textarea>
+            </label>
+            <label>
+                <span>Image URL</span>
+                <input type="text" class="insightImage" value="${escapeHtml(item.image || '')}" />
+            </label>
+            <label>
+                <span>Alt text</span>
+                <input type="text" class="insightAlt" value="${escapeHtml(item.alt || '')}" />
+            </label>
+            <div class="admin-item-actions">
+                <button type="button" class="remove-btn" data-remove-insight="${index}">Remove</button>
+            </div>
+        `;
+        travelInsightsEditor.appendChild(card);
+    });
+
+    servicesEditor.innerHTML = '';
+    const servicesItems = content.servicesItems || [
+        { title: 'Wildlife Safari', description: 'Professional guided safari tours to encounter Africa\'s incredible wildlife' }
+    ];
+
+    servicesItems.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'admin-item-card';
+        card.innerHTML = `
+            <label>
+                <span>Service title</span>
+                <input type="text" class="serviceTitle" value="${escapeHtml(item.title || '')}" />
+            </label>
+            <label>
+                <span>Description</span>
+                <textarea class="serviceDescription" rows="2">${escapeHtml(item.description || '')}</textarea>
+            </label>
+            <div class="admin-item-actions">
+                <button type="button" class="remove-btn" data-remove-service="${index}">Remove</button>
+            </div>
+        `;
+        servicesEditor.appendChild(card);
+    });
+}
+
+function saveAdminForm() {
+    const content = getAdminContent();
+    content.siteName = document.getElementById('siteName').value.trim() || defaultDashboardContent.siteName;
+    content.heroTitle = document.getElementById('heroTitle').value.trim() || defaultDashboardContent.heroTitle;
+    content.heroSubtitle = document.getElementById('heroSubtitle').value.trim() || defaultDashboardContent.heroSubtitle;
+    content.heroCta = document.getElementById('heroCta').value.trim() || defaultDashboardContent.heroCta;
+    content.newsletterTitle = document.getElementById('newsletterTitle').value.trim() || defaultDashboardContent.newsletterTitle;
+    content.newsletterText = document.getElementById('newsletterText').value.trim() || defaultDashboardContent.newsletterText;
+    content.footerDescription = document.getElementById('footerDescription').value.trim() || defaultDashboardContent.footerDescription;
+    content.footerLocation = document.getElementById('footerLocation').value.trim() || defaultDashboardContent.footerLocation;
+    content.footerPhone = document.getElementById('footerPhone').value.trim() || defaultDashboardContent.footerPhone;
+    content.footerEmail = document.getElementById('footerEmail').value.trim() || defaultDashboardContent.footerEmail;
+
+    content.featuredItems = Array.from(document.querySelectorAll('#featuredItemsEditor .admin-item-card')).map(card => ({
+        title: card.querySelector('.featuredTitle').value.trim(),
+        description: card.querySelector('.featuredDescription').value.trim()
+    })).filter(item => item.title || item.description);
+
+    content.heroSlides = Array.from(document.querySelectorAll('#heroSlidesEditor .admin-item-card')).map(card => ({
+        title: card.querySelector('.slideTitle').value.trim(),
+        subtitle: card.querySelector('.slideSubtitle').value.trim(),
+        image: card.querySelector('.slideImage').value.trim(),
+        alt: card.querySelector('.slideAlt').value.trim()
+    })).filter(item => item.title || item.subtitle || item.image || item.alt);
+
+    content.travelInsights = Array.from(document.querySelectorAll('#travelInsightsEditor .admin-item-card')).map(card => ({
+        title: card.querySelector('.insightTitle').value.trim(),
+        description: card.querySelector('.insightDescription').value.trim(),
+        image: card.querySelector('.insightImage').value.trim(),
+        alt: card.querySelector('.insightAlt').value.trim()
+    })).filter(item => item.title || item.description || item.image || item.alt);
+
+    content.servicesItems = Array.from(document.querySelectorAll('#servicesItemsEditor .admin-item-card')).map(card => ({
+        title: card.querySelector('.serviceTitle').value.trim(),
+        description: card.querySelector('.serviceDescription').value.trim()
+    })).filter(item => item.title || item.description);
+
+    saveAdminContent(content);
+    saveDashboardContent(content);
+    applyDashboardContent(content);
+    showNotification('Admin content saved successfully.', 'success');
+}
+
+function resetAdminContent() {
+    const resetContent = {
+        ...defaultDashboardContent,
+        featuredItems: defaultDashboardContent.featuredItems || [],
+        servicesItems: defaultDashboardContent.servicesItems || [],
+        heroSlides: defaultDashboardContent.heroSlides || [],
+        travelInsights: defaultDashboardContent.travelInsights || []
+    };
+    saveAdminContent(resetContent);
+    saveDashboardContent(resetContent);
+    applyDashboardContent(resetContent);
+    renderAdminPage();
+    showNotification('Admin content reset to defaults.', 'info');
 }
 
 // ===== PACKAGE DETAIL MODAL =====
@@ -1026,6 +1322,135 @@ window.addEventListener('load', () => {
 
     const dashboardContent = getDashboardContent();
     applyDashboardContent(dashboardContent);
+
+    window.addEventListener('siteContentUpdated', (event) => {
+        const updatedContent = event.detail || getDashboardContent();
+        applyDashboardContent(updatedContent);
+    });
+
+    window.addEventListener('storage', (event) => {
+        if (event.key === DASHBOARD_STORAGE_KEY || event.key === ADMIN_STORAGE_KEY) {
+            try {
+                const updatedContent = event.newValue ? JSON.parse(event.newValue) : getDashboardContent();
+                applyDashboardContent(updatedContent);
+            } catch (error) {
+                applyDashboardContent(getDashboardContent());
+            }
+        }
+    });
+
+    if (document.body.dataset.page === 'admin') {
+        renderAdminPage();
+
+        document.getElementById('siteContentForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            saveAdminForm();
+        });
+
+        document.getElementById('addFeaturedBtn').addEventListener('click', () => {
+            const editor = document.getElementById('featuredItemsEditor');
+            const card = document.createElement('div');
+            card.className = 'admin-item-card';
+            card.innerHTML = `
+                <label>
+                    <span>Destination title</span>
+                    <input type="text" class="featuredTitle" value="" />
+                </label>
+                <label>
+                    <span>Description</span>
+                    <textarea class="featuredDescription" rows="2"></textarea>
+                </label>
+                <div class="admin-item-actions">
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+            `;
+            card.querySelector('.remove-btn').addEventListener('click', () => card.remove());
+            editor.appendChild(card);
+        });
+
+        document.getElementById('addSlideBtn').addEventListener('click', () => {
+            const editor = document.getElementById('heroSlidesEditor');
+            const card = document.createElement('div');
+            card.className = 'admin-item-card';
+            card.innerHTML = `
+                <label>
+                    <span>Slide title</span>
+                    <input type="text" class="slideTitle" value="" />
+                </label>
+                <label>
+                    <span>Slide subtitle</span>
+                    <input type="text" class="slideSubtitle" value="" />
+                </label>
+                <label>
+                    <span>Image URL</span>
+                    <input type="text" class="slideImage" value="" placeholder="walk.lion.jpg" />
+                </label>
+                <label>
+                    <span>Alt text</span>
+                    <input type="text" class="slideAlt" value="" />
+                </label>
+                <div class="admin-item-actions">
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+            `;
+            card.querySelector('.remove-btn').addEventListener('click', () => card.remove());
+            editor.appendChild(card);
+        });
+
+        document.getElementById('addInsightBtn').addEventListener('click', () => {
+            const editor = document.getElementById('travelInsightsEditor');
+            const card = document.createElement('div');
+            card.className = 'admin-item-card';
+            card.innerHTML = `
+                <label>
+                    <span>Insight title</span>
+                    <input type="text" class="insightTitle" value="" />
+                </label>
+                <label>
+                    <span>Description</span>
+                    <textarea class="insightDescription" rows="2"></textarea>
+                </label>
+                <label>
+                    <span>Image URL</span>
+                    <input type="text" class="insightImage" value="" placeholder="https://example.com/image.jpg" />
+                </label>
+                <label>
+                    <span>Alt text</span>
+                    <input type="text" class="insightAlt" value="" />
+                </label>
+                <div class="admin-item-actions">
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+            `;
+            card.querySelector('.remove-btn').addEventListener('click', () => card.remove());
+            editor.appendChild(card);
+        });
+
+        document.getElementById('addServiceBtn').addEventListener('click', () => {
+            const editor = document.getElementById('servicesItemsEditor');
+            const card = document.createElement('div');
+            card.className = 'admin-item-card';
+            card.innerHTML = `
+                <label>
+                    <span>Service title</span>
+                    <input type="text" class="serviceTitle" value="" />
+                </label>
+                <label>
+                    <span>Description</span>
+                    <textarea class="serviceDescription" rows="2"></textarea>
+                </label>
+                <div class="admin-item-actions">
+                    <button type="button" class="remove-btn">Remove</button>
+                </div>
+            `;
+            card.querySelector('.remove-btn').addEventListener('click', () => card.remove());
+            editor.appendChild(card);
+        });
+
+        document.getElementById('resetAdminBtn').addEventListener('click', () => {
+            resetAdminContent();
+        });
+    }
 
     bootAuth();
 });
